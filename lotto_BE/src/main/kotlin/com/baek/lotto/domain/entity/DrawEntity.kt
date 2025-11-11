@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(
-    name = "draw",
+    name = "draws",
     indexes = [Index(name = "idx_draw", columnList = "drw_no", unique = true)]
 )
 class DrawEntity(

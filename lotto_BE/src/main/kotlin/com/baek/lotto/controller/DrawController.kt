@@ -18,4 +18,16 @@ class DrawController(
         val draw = drawService.getByDrwNo(drwNo)
         return ResponseEntity.ok(ApiResponse.success(draw, "${drwNo}회 로또 조회 성공"))
     }
+
+    @GetMapping("/api/draw/latest")
+    fun getLatestDraw(): ResponseEntity<ApiResponse<DrawDto>> {
+        val draw = drawService.getLatestDrw()
+        return ResponseEntity.ok(ApiResponse.success(draw, "최신 회차 로또 조회 성공"))
+    }
+
+    @GetMapping("/api/draw/sync")
+    suspend fun fetch(): ResponseEntity<ApiResponse<Map<String, Int>>> {
+        val saved = drawService.fetch()
+        return ResponseEntity.ok(ApiResponse.success(mapOf("saved" to saved), "로또 동기화 성공"))
+    }
 }

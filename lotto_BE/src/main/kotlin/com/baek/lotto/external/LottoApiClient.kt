@@ -1,13 +1,14 @@
 package com.baek.lotto.external
 
+import kotlinx.coroutines.reactive.awaitSingle
 import kotlinx.coroutines.withTimeout
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBody
 
 @Component
 class LottoApiClient(
-    private val webClient: WebClient
+    private val webClient: WebClient,
+    private val mapper: com.fasterxml.jackson.databind.ObjectMapper,
 ) {
 
     suspend fun getLatestDrwNo(start: Int = 1100): Int {
@@ -26,7 +27,7 @@ class LottoApiClient(
 
     suspend fun getDraw(drwNo: Int): LottoApiDto? = runCatching {
         withTimeout(3000) {
-            webClient.get()
+            val raw = webClient.get()
                 .uri { b ->
                     b.path("/common.do")
                         .queryParam("method", "getLottoNumber")
@@ -37,7 +38,10 @@ class LottoApiClient(
                 .onStatus({ it.isError }) { resp ->
                     resp.bodyToMono(String::class.java).map { RuntimeException("HTTP ${resp.statusCode()} $it") }
                 }
-                .awaitBody<LottoApiDto>()
+                .bodyToMono(String::class.java)
+                .awaitSingle()
+            val dto = mapper.readValue(raw, LottoApiDto::class.java)
+            if (dto.returnValue == "success") dto else null
         }
     }.getOrNull()?.takeIf { it.returnValue == "success" }
 }
