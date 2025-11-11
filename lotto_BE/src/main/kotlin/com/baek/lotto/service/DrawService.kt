@@ -1,5 +1,7 @@
 package com.baek.lotto.service
 
+import com.baek.lotto.common.error.ErrorType
+import com.baek.lotto.common.error.LottoException
 import com.baek.lotto.dto.DrawDto
 import com.baek.lotto.repository.DrawRepository
 import com.baek.lotto.service.mapper.DrawMapper.toDto
@@ -9,9 +11,10 @@ import org.springframework.stereotype.Service
 class DrawService(
     val drawRepository: DrawRepository
 ) {
+    fun getByDrwNo(drwNo: Int): DrawDto {
+        val draw = drawRepository.findByDrwNo(drwNo)
+            ?: throw LottoException(ErrorType.DRAW_NOT_FOUND)
 
-    fun getByDrwNo(drwNo: Int): DrawDto? {
-        return drawRepository.findByDrwNo(drwNo)?.toDto()
+        return draw.toDto()
     }
-
 }
