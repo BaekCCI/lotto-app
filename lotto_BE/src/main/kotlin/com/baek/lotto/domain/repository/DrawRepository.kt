@@ -1,8 +1,7 @@
-package com.baek.lotto.repository
+package com.baek.lotto.domain.repository
 
 import com.baek.lotto.domain.entity.DrawEntity
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
 
 interface DrawRepository : JpaRepository<DrawEntity, Long> {
 
