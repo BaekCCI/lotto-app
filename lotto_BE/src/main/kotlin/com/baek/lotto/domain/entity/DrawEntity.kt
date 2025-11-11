@@ -42,17 +42,11 @@ class DrawEntity(
     @Column(name = "bonus", nullable = false)
     val bonus: Int,
 
-    @Column(name = "tot_sellamnt", nullable = false) //총 판매금액
-    val totSellamnt: Long,
-
     @Column(name = "first_winamnt", nullable = false) //1등 당첨 금액
     val firstWinamnt: Long,
 
     @Column(name = "first_przwner_co", nullable = false) //1등 당첨자 수
     val firstPrzwnerCo: Int,
-
-    @Column(name = "first_accumamnt", nullable = false)
-    val firstAccumamnt: Long,
 
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
