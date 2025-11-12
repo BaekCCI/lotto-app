@@ -1,7 +1,7 @@
 package com.baek.lotto.service
 
-import com.baek.lotto.common.contant.LottoConstant.LOTTO_MAX_NUMBER
-import com.baek.lotto.common.contant.LottoConstant.LOTTO_MIN_NUMBER
+import com.baek.lotto.common.constant.LottoConstant.LOTTO_MAX_NUMBER
+import com.baek.lotto.common.constant.LottoConstant.LOTTO_MIN_NUMBER
 import com.baek.lotto.domain.entity.StatsGlobalEntity
 import com.baek.lotto.domain.entity.StatsRecentEntity
 import com.baek.lotto.domain.repository.DrawRepository

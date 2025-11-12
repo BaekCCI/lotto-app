@@ -1,5 +1,9 @@
 package com.baek.lotto.service
 
+import com.baek.lotto.common.constant.SnapshotConstant.GLOBAL_BOTTOM_COUNT
+import com.baek.lotto.common.constant.SnapshotConstant.GLOBAL_ID
+import com.baek.lotto.common.constant.SnapshotConstant.RECENT_ID
+import com.baek.lotto.common.constant.SnapshotConstant.RECENT_TOP_COUNT
 import com.baek.lotto.domain.entity.StatsSnapshotEntity
 import com.baek.lotto.domain.repository.StatsGlobalRepository
 import com.baek.lotto.domain.repository.StatsRecentRepository
@@ -61,12 +65,5 @@ class SnapshotService(
         exists.numbers = json
         exists.currentDrwNo = drwNo
         exists.updatedAt = now
-    }
-
-    companion object {
-        const val GLOBAL_ID = "global_bottom15"
-        const val RECENT_ID = "recent_top20"
-        const val GLOBAL_BOTTOM_COUNT = 15
-        const val RECENT_TOP_COUNT = 20
     }
 }
