@@ -26,7 +26,7 @@ class SnapshotService(
     @Transactional
     fun updateGlobalSnapshot() {
         val global = statsGlobalRepository.findAllByOrderByCntAscNumberAsc()
-        val bottom15 = global.takeLast(15).map { it.number }
+        val bottom15 = global.takeLast(GLOBAL_BOTTOM_COUNT).map { it.number }
         val drwNo = global.firstOrNull()?.toDrw ?: 0
 
         upsert(GLOBAL_ID, bottom15, drwNo)
@@ -35,7 +35,7 @@ class SnapshotService(
     @Transactional
     private fun updateRecentSnapshot() {
         val recent = statsRecentRepository.findAllByOrderByCntDescNumberAsc()
-        val top20 = recent.take(20).map { it.number }
+        val top20 = recent.take(RECENT_TOP_COUNT).map { it.number }
         val drwNo = recent.firstOrNull()?.toDrw ?: 0
 
         upsert(RECENT_ID, top20, drwNo)
@@ -66,5 +66,7 @@ class SnapshotService(
     companion object {
         const val GLOBAL_ID = "global_bottom15"
         const val RECENT_ID = "recent_top20"
+        const val GLOBAL_BOTTOM_COUNT = 15
+        const val RECENT_TOP_COUNT = 20
     }
 }

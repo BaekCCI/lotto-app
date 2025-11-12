@@ -1,5 +1,7 @@
 package com.baek.lotto.service
 
+import com.baek.lotto.common.contant.LottoConstant.LOTTO_MAX_NUMBER
+import com.baek.lotto.common.contant.LottoConstant.LOTTO_MIN_NUMBER
 import com.baek.lotto.domain.entity.StatsGlobalEntity
 import com.baek.lotto.domain.entity.StatsRecentEntity
 import com.baek.lotto.domain.repository.DrawRepository
@@ -26,7 +28,7 @@ class StatsService(
         val addedMap = added.associateBy({ it.number }, { it.cnt })
         val now = LocalDateTime.now()
 
-        for (n in 1..45) {
+        for (n in LOTTO_MIN_NUMBER..LOTTO_MAX_NUMBER) {
             val entity = statsGlobalRepository.findById(n).orElse(
                 StatsGlobalEntity(
                     number = n,
@@ -53,7 +55,7 @@ class StatsService(
         val now = LocalDateTime.now()
 
         statsRecentRepository.deleteAllInBatch()
-        val toSave = (1..45).map { n ->
+        val toSave = (LOTTO_MIN_NUMBER..LOTTO_MAX_NUMBER).map { n ->
             StatsRecentEntity(
                 number = n,
                 cnt = countMap[n] ?: 0,
