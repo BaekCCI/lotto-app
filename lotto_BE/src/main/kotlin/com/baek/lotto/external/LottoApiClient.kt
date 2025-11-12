@@ -1,5 +1,6 @@
 package com.baek.lotto.external
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.reactive.awaitSingle
 import kotlinx.coroutines.withTimeout
 import org.springframework.stereotype.Component
@@ -8,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient
 @Component
 class LottoApiClient(
     private val webClient: WebClient,
-    private val mapper: com.fasterxml.jackson.databind.ObjectMapper,
+    private val mapper: ObjectMapper,
 ) {
 
     suspend fun getLatestDrwNo(start: Int = 1100): Int {

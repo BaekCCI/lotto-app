@@ -9,20 +9,19 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(
-    name = "stats_snapshot",
-    indexes = [Index(name = "idx_snapshot", columnList = "drw_no", unique = true)],
+    name = "stats_snapshot"
 )
 class StatsSnapshotEntity(
     @Id
-    @Column(name = "drw_no")
-    val drwNo: Int,
+    @Column(name = "id", length = 50)
+    val id: String, //recentTop20, globalBottom15
 
-    @Column(name = "recent_top20", columnDefinition = "json", nullable = false)
-    var recentTop20: String,
+    @Column(name = "numbers", columnDefinition = "json", nullable = false)
+    var numbers: String,
 
-    @Column(name = "global_bottom15", columnDefinition = "json", nullable = false)
-    var globalBottom15: String,
+    @Column(name = "current_drw_no", nullable = false)
+    var currentDrwNo: Int,
 
-    @Column(name = "created_at", nullable = false)
-    var createdAt: LocalDateTime = LocalDateTime.now()
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 )
