@@ -1,9 +1,17 @@
 package com.baek.lotto.domain.entity
 
 import jakarta.persistence.Column
+import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Index
+import jakarta.persistence.Table
 import java.time.LocalDateTime
 
+@Entity
+@Table(
+    name = "stats_recent_100",
+    indexes = [Index(name = "idx_recent100", columnList = "to_drw")],
+)
 class StatsRecentEntity (
     @Id
     @Column(name = "number", nullable = false)

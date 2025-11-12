@@ -1,23 +1,28 @@
 package com.baek.lotto.domain.entity
 
 import jakarta.persistence.Column
+import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Index
+import jakarta.persistence.Table
 import java.time.LocalDateTime
 
-class StatsSnapshotEntity (
+@Entity
+@Table(
+    name = "stats_snapshot",
+    indexes = [Index(name = "idx_snapshot", columnList = "drw_no", unique = true)],
+)
+class StatsSnapshotEntity(
     @Id
-    @Column(name = "id", length = 50)
-    val id: String, //recentTop20, globalBottom15
+    @Column(name = "drw_no")
+    val drwNo: Int,
 
-    @Column(name = "numbers", columnDefinition = "json", nullable = false)
-    var numbers: String,
+    @Column(name = "recent_top20", columnDefinition = "json", nullable = false)
+    var recentTop20: String,
 
-    @Column(name = "from_drw", nullable = false)
-    var fromDrw: Int,
+    @Column(name = "global_bottom15", columnDefinition = "json", nullable = false)
+    var globalBottom15: String,
 
-    @Column(name = "to_drw", nullable = false)
-    var toDrw: Int,
-
-    @Column(name = "updated_at", nullable = false)
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    @Column(name = "created_at", nullable = false)
+    var createdAt: LocalDateTime = LocalDateTime.now()
 )
