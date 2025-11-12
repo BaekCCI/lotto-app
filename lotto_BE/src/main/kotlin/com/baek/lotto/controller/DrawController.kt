@@ -2,15 +2,19 @@ package com.baek.lotto.controller
 
 import com.baek.lotto.common.response.ApiResponse
 import com.baek.lotto.dto.DrawDto
+import com.baek.lotto.dto.SyncResultDto
 import com.baek.lotto.service.DrawService
+import com.baek.lotto.service.SyncService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class DrawController(
-    val drawService: DrawService
+    private val drawService: DrawService,
+    private val syncService: SyncService
 ) {
 
     @GetMapping("/api/draw/{drwNo}")
@@ -25,9 +29,9 @@ class DrawController(
         return ResponseEntity.ok(ApiResponse.success(draw, "최신 회차 로또 조회 성공"))
     }
 
-    @GetMapping("/api/draw/sync")
-    suspend fun fetch(): ResponseEntity<ApiResponse<Map<String, Int>>> {
-        val saved = drawService.fetch()
-        return ResponseEntity.ok(ApiResponse.success(mapOf("saved" to saved), "로또 동기화 성공"))
+    @PostMapping("/api/draw/sync")
+    suspend fun sync(): ResponseEntity<ApiResponse<SyncResultDto>> {
+        val result = syncService.sync()
+        return ResponseEntity.ok(ApiResponse.success(result, "로또 동기화 성공"))
     }
 }

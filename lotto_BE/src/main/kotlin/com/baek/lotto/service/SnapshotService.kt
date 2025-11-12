@@ -5,9 +5,11 @@ import com.baek.lotto.domain.repository.StatsGlobalRepository
 import com.baek.lotto.domain.repository.StatsRecentRepository
 import com.baek.lotto.domain.repository.StatsSnapshotRepository
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
+@Service
 class SnapshotService(
     private val statsGlobalRepository: StatsGlobalRepository,
     private val statsRecentRepository: StatsRecentRepository,
