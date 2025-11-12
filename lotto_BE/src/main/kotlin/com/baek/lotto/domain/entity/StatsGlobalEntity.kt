@@ -12,9 +12,6 @@ class StatsGlobalEntity (
     @Column(name = "cnt", nullable = false)
     var cnt: Int,
 
-    @Column(name = "from_drw", nullable = false)
-    var fromDrw: Int,
-
     @Column(name = "to_drw", nullable = false)
     var toDrw: Int,
 
