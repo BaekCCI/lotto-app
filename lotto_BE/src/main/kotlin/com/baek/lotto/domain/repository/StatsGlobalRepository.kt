@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface StatsGlobalRepository : JpaRepository<StatsGlobalEntity, Int> {
 
-    fun findAllByOrderByCntDescNumberAsc(): List<StatsGlobalEntity>
+    fun findAllByOrderByCntAscNumberAsc(): List<StatsGlobalEntity>
 }
