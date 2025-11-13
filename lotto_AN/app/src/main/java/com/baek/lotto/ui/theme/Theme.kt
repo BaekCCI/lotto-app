@@ -52,7 +52,7 @@ fun LottoTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = LottoTypography,
         content = content
     )
 }
