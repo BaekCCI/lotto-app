@@ -6,23 +6,56 @@ import com.baek.lotto.domain.model.Draw
 import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.domain.model.SyncResult
 import javax.inject.Inject
+import com.baek.lotto.common.Result
+import com.baek.lotto.data.mapper.DomainMapper
+import com.baek.lotto.data.mapper.DomainMapper.toDomain
+import com.baek.lotto.data.model.RandomLottoRequest
+
 
 class LottoRepositoryImpl @Inject constructor(
     private val api: LottoApi
 ) : LottoRepository {
     override suspend fun sync(): Result<SyncResult> {
-        TODO("Not yet implemented")
+        return try {
+            val response = api.sync()
+            val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
+
+            Result.Success(data.toDomain())
+        } catch (e: Exception) {
+            Result.Error(e.message, e)
+        }
     }
 
     override suspend fun getDraw(drwNo: Int): Result<Draw> {
-        TODO("Not yet implemented")
+        return try {
+            val response = api.getDraw(drwNo)
+            val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
+
+            Result.Success(data.toDomain())
+        } catch (e: Exception) {
+            Result.Error(e.message, e)
+        }
     }
 
     override suspend fun getLatest(): Result<Draw> {
-        TODO("Not yet implemented")
+        return try {
+            val response = api.getLatestDraw()
+            val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
+
+            Result.Success(data.toDomain())
+        } catch (e: Exception) {
+            Result.Error(e.message, e)
+        }
     }
 
     override suspend fun createRandomLotto(count: Int): Result<List<RandomLotto>> {
-        TODO("Not yet implemented")
+        return try {
+            val response = api.createRandomLottos(RandomLottoRequest(count))
+            val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
+
+            Result.Success(data.map { it.toDomain() })
+        } catch (e: Exception) {
+            Result.Error(e.message, e)
+        }
     }
 }
