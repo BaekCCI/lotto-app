@@ -22,7 +22,7 @@ class LottoRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun createRandomLotto(): Result<RandomLotto> {
+    override suspend fun createRandomLotto(count: Int): Result<List<RandomLotto>> {
         TODO("Not yet implemented")
     }
 }

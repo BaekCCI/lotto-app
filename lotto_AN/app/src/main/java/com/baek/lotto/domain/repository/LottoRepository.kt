@@ -8,9 +8,9 @@ interface LottoRepository {
 
     suspend fun sync(): Result<SyncResult>
 
-    suspend fun getDraw(drwNo:Int):Result<Draw>
+    suspend fun getDraw(drwNo: Int): Result<Draw>
 
-    suspend fun getLatest():Result<Draw>
+    suspend fun getLatest(): Result<Draw>
 
-    suspend fun createRandomLotto(): Result<RandomLotto>
+    suspend fun createRandomLotto(count: Int): Result<List<RandomLotto>>
 }

@@ -3,7 +3,9 @@ package com.baek.lotto.data.remote
 import com.baek.lotto.common.ApiResponse
 import com.baek.lotto.data.model.DrawDto
 import com.baek.lotto.data.model.RandomLottoDto
+import com.baek.lotto.data.model.RandomLottoRequest
 import com.baek.lotto.data.model.SyncResultDto
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -22,5 +24,7 @@ interface LottoApi {
     suspend fun getLatestDraw(): ApiResponse<DrawDto>
 
     @POST("api/lotto/random")
-    suspend fun createRandomLotto(): ApiResponse<RandomLottoDto>
+    suspend fun createRandomLottos(
+        @Body request: RandomLottoRequest
+    ): ApiResponse<List<RandomLottoDto>>
 }
