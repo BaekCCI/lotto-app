@@ -7,53 +7,47 @@ import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.domain.model.SyncResult
 import javax.inject.Inject
 import com.baek.lotto.common.Result
-import com.baek.lotto.data.mapper.DomainMapper
 import com.baek.lotto.data.mapper.DomainMapper.toDomain
 import com.baek.lotto.data.model.RandomLottoRequest
-
 
 class LottoRepositoryImpl @Inject constructor(
     private val api: LottoApi
 ) : LottoRepository {
     override suspend fun sync(): Result<SyncResult> {
-        return try {
+        return handleApi {
             val response = api.sync()
             val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
-
-            Result.Success(data.toDomain())
-        } catch (e: Exception) {
-            Result.Error(e.message, e)
+            data.toDomain()
         }
     }
 
     override suspend fun getDraw(drwNo: Int): Result<Draw> {
-        return try {
+        return handleApi {
             val response = api.getDraw(drwNo)
             val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
-
-            Result.Success(data.toDomain())
-        } catch (e: Exception) {
-            Result.Error(e.message, e)
+            data.toDomain()
         }
     }
 
     override suspend fun getLatest(): Result<Draw> {
-        return try {
+        return handleApi {
             val response = api.getLatestDraw()
             val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
-
-            Result.Success(data.toDomain())
-        } catch (e: Exception) {
-            Result.Error(e.message, e)
+            data.toDomain()
         }
     }
 
     override suspend fun createRandomLotto(count: Int): Result<List<RandomLotto>> {
-        return try {
+        return handleApi {
             val response = api.createRandomLottos(RandomLottoRequest(count))
             val data = response.data ?: throw NullPointerException("데이터가 비어있습니다.")
+            data.map { it.toDomain() }
+        }
+    }
 
-            Result.Success(data.map { it.toDomain() })
+    private inline fun <T> handleApi(block: () -> T): Result<T> {
+        return try {
+            Result.Success(block())
         } catch (e: Exception) {
             Result.Error(e.message, e)
         }
