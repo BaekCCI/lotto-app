@@ -1,16 +1,16 @@
 package com.baek.lotto.domain.repository
 
-import com.baek.lotto.data.model.DrawDto
-import com.baek.lotto.data.model.RandomLottoDto
-import com.baek.lotto.data.model.SyncResultDto
+import com.baek.lotto.domain.model.Draw
+import com.baek.lotto.domain.model.RandomLotto
+import com.baek.lotto.domain.model.SyncResult
 
 interface LottoRepository {
 
-    suspend fun sync(): Result<SyncResultDto>
+    suspend fun sync(): Result<SyncResult>
 
-    suspend fun getDraw(drwNo:Int):Result<DrawDto>
+    suspend fun getDraw(drwNo:Int):Result<Draw>
 
-    suspend fun getLatest():Result<DrawDto>
+    suspend fun getLatest():Result<Draw>
 
-    suspend fun createRandomLotto(): Result<RandomLottoDto>
+    suspend fun createRandomLotto(): Result<RandomLotto>
 }
