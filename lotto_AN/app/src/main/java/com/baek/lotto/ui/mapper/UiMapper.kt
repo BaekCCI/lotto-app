@@ -2,11 +2,13 @@ package com.baek.lotto.ui.mapper
 
 import com.baek.lotto.domain.model.Draw
 import com.baek.lotto.domain.model.DrawInfo
+import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.ui.mapper.BallColorMapper.getBallColor
 import com.baek.lotto.ui.mapper.DateFormatter.toUiString
 import com.baek.lotto.ui.model.DrawInfoUiModel
 import com.baek.lotto.ui.model.DrawUiModel
 import com.baek.lotto.ui.model.NumberUiModel
+import com.baek.lotto.ui.model.RandomLottoUiModel
 import java.time.LocalDate
 
 object UiMapper {
@@ -28,10 +30,10 @@ object UiMapper {
         )
     }
 
-    fun List<Int>.toUi(): List<NumberUiModel> {
-        return this.map { n ->
-            n.toUi()
-        }
+    fun RandomLotto.toUi(): RandomLottoUiModel {
+        return RandomLottoUiModel(
+            numbers = numbers.map { it.toUi() }
+        )
     }
 
     private fun buildTitle(drawNo: Int, date: LocalDate): String {
