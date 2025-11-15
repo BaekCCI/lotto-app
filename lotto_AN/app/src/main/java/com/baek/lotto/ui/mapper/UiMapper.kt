@@ -15,6 +15,7 @@ object UiMapper {
 
     fun Draw.toUi(): DrawUiModel {
         return DrawUiModel(
+            drawNo = drawNo,
             title = buildTitle(drawNo, drawDate),
             numbers = numbers.map { it.toUi() },
             bonus = bonus.toUi(),

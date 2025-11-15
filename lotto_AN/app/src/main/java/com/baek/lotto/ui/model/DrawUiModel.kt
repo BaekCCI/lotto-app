@@ -1,6 +1,7 @@
 package com.baek.lotto.ui.model
 
 data class DrawUiModel(
+    val drawNo: Int,
     val title: String, //n회차(날짜)
     val numbers: List<NumberUiModel>,
     val bonus: NumberUiModel,
