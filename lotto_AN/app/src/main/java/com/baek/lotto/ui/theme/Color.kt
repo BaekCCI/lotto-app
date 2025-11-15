@@ -27,6 +27,8 @@ val DividerSecondary = Color(0xFFE8EDF6)
 //로또 번호들 배경
 val SurfaceSubtle = Color(0xFFF7F9FC)
 
+val SelectedSurface = Color(0xFFE8EDF6)
+
 //전체 배경
 val Background = Color(0xFFFDFDFD)
 
