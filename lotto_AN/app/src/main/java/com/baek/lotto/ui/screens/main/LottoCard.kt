@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.baek.lotto.ui.components.NumberBall
 import com.baek.lotto.ui.model.DrawUiModel
 import com.baek.lotto.ui.theme.DividerPrimary
 import com.baek.lotto.ui.theme.LottoGray
@@ -154,27 +155,6 @@ fun LottoCard(
                 }
                 Spacer(modifier = Modifier.height(15.dp))
             }
-        }
-    }
-}
-
-@Composable
-private fun NumberBall(number: Int, color: Color) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clip(CircleShape)
-                .background(color),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = number.toString(),
-                style = LottoTypography.bodyLarge,
-                color = Surface
-            )
         }
     }
 }
