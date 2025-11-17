@@ -40,3 +40,5 @@ val LottoBlue = Color(0xFF69C8F2)
 val LottoRed = Color(0xFFFF7272)
 val LottoGray = Color(0xFFB0B0B0)
 val LottoGreen = Color(0xFFB0D840)
+
+val LottoInactive = Color(0xFFDDDDDD)

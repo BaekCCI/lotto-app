@@ -70,4 +70,9 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
+    implementation("com.github.LottieFiles:dotlottie-android:0.12.0")
+
 }

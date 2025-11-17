@@ -34,8 +34,8 @@ val LottoTypography = Typography(
     ),
     headlineSmall = TextStyle(
         fontFamily = LottoFont,
-        fontSize = 24.sp,
-        lineHeight = 32.sp,
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 0.sp
     ),
@@ -93,6 +93,14 @@ val LottoTypography = Typography(
         fontFamily = LottoFont,
         fontSize = 18.sp,
         lineHeight = 20.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 0.1.sp
+    ),
+
+    labelMedium = TextStyle(
+        fontFamily = LottoFont,
+        fontSize = 16.sp,
+        lineHeight = 16.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 0.1.sp
     )
