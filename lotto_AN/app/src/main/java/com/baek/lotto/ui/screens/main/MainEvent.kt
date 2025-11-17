@@ -5,5 +5,6 @@ sealed interface MainEvent {
     data object OnClickStorage : MainEvent
     data object OnClickDrawTitle : MainEvent
     data class OnSelectDraw(val drawNo: Int) : MainEvent
+    data object OnClickReload : MainEvent
     data object OnDismissBottomSheet : MainEvent
 }

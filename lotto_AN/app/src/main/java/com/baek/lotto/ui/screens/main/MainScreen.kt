@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import com.baek.lotto.common.Result
 import com.baek.lotto.ui.model.DrawInfoUiModel
 import com.baek.lotto.ui.model.DrawUiModel
 import com.baek.lotto.ui.model.NumberUiModel
@@ -19,7 +20,9 @@ import com.baek.lotto.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    state: MainUiState,
+    selectedDraw: Result<DrawUiModel>,
+    drawInfoList: List<DrawInfoUiModel>,
+    isBottomSheetVisible: Boolean = false,
     onEvent: (MainEvent) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(
@@ -40,9 +43,10 @@ fun MainScreen(
             Spacer(Modifier.height(50.dp))
 
             LottoCard(
-                draw = state.selectedDraw,
-                onClickDrawTitle = { onEvent(MainEvent.OnClickDrawTitle) }
+                drawState = selectedDraw,
+                onEvent = onEvent
             )
+
             Spacer(Modifier.height(50.dp))
 
             Button(
@@ -77,17 +81,15 @@ fun MainScreen(
                 )
             }
         }
-        if (state.isBottomSheetVisible) {
+        if (isBottomSheetVisible) {
             DrawSelectBottomSheet(
-                drawInfoList = state.drawInfoList,
-                selectedDraw = state.selectedDraw?.drawNo,
+                drawInfoList = drawInfoList,
+                selectedDraw = if (selectedDraw is Result.Success) selectedDraw.data.drawNo else null,
                 sheetState = sheetState,
                 onSelect = { onEvent(MainEvent.OnSelectDraw(it)) },
                 onDismiss = { onEvent(MainEvent.OnDismissBottomSheet) }
             )
         }
-
-
     }
 }
 
@@ -110,34 +112,29 @@ fun MainScreenPreview() {
         firstWinnerCount = 15
     )
 
-    val sampleState = MainUiState(
-        selectedDraw = sampleDraw,
-        drawInfoList = listOf(
-            DrawInfoUiModel(1196, "1196회차(2025.11.01)"),
-            DrawInfoUiModel(1195, "1195회차(2025.10.25)"),
-            DrawInfoUiModel(1194, "1194회차(2025.10.18)"),
-            DrawInfoUiModel(1193, "1193회차(2025.10.11)"),
-            DrawInfoUiModel(1192, "1192회차(2025.11.01)"),
-            DrawInfoUiModel(1191, "1191회차(2025.10.25)"),
-            DrawInfoUiModel(1190, "1190회차(2025.10.18)"),
-            DrawInfoUiModel(1189, "1189회차(2025.10.11)"),
-            DrawInfoUiModel(1188, "1188회차(2025.10.11)"),
-            DrawInfoUiModel(1187, "1187회차(2025.10.11)"),
-            DrawInfoUiModel(1186, "1186회차(2025.10.11)"),
-            DrawInfoUiModel(1185, "1185회차(2025.10.11)"),
-            DrawInfoUiModel(1184, "1184회차(2025.10.11)"),
-            DrawInfoUiModel(1183, "1183회차(2025.10.11)"),
-            DrawInfoUiModel(1182, "1182회차(2025.10.11)"),
-            DrawInfoUiModel(1181, "1181회차(2025.10.11)"),
-            DrawInfoUiModel(1180, "1180회차(2025.10.11)"),
-
-            ),
-        isBottomSheetVisible = false
-    )
-
     MaterialTheme {
         MainScreen(
-            state = sampleState,
+            selectedDraw = Result.Success(sampleDraw),
+            drawInfoList = listOf(
+                DrawInfoUiModel(1196, "1196회차(2025.11.01)"),
+                DrawInfoUiModel(1195, "1195회차(2025.10.25)"),
+                DrawInfoUiModel(1194, "1194회차(2025.10.18)"),
+                DrawInfoUiModel(1193, "1193회차(2025.10.11)"),
+                DrawInfoUiModel(1192, "1192회차(2025.11.01)"),
+                DrawInfoUiModel(1191, "1191회차(2025.10.25)"),
+                DrawInfoUiModel(1190, "1190회차(2025.10.18)"),
+                DrawInfoUiModel(1189, "1189회차(2025.10.11)"),
+                DrawInfoUiModel(1188, "1188회차(2025.10.11)"),
+                DrawInfoUiModel(1187, "1187회차(2025.10.11)"),
+                DrawInfoUiModel(1186, "1186회차(2025.10.11)"),
+                DrawInfoUiModel(1185, "1185회차(2025.10.11)"),
+                DrawInfoUiModel(1184, "1184회차(2025.10.11)"),
+                DrawInfoUiModel(1183, "1183회차(2025.10.11)"),
+                DrawInfoUiModel(1182, "1182회차(2025.10.11)"),
+                DrawInfoUiModel(1181, "1181회차(2025.10.11)"),
+                DrawInfoUiModel(1180, "1180회차(2025.10.11)"),
+                ),
+            isBottomSheetVisible = false,
             onEvent = {}
         )
     }

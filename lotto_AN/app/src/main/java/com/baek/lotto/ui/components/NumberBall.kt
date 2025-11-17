@@ -16,13 +16,17 @@ import com.baek.lotto.ui.theme.LottoTypography
 import com.baek.lotto.ui.theme.Surface
 
 @Composable
-fun NumberBall(number: Int, color: Color) {
+fun NumberBall(
+    number: Int,
+    color: Color,
+    isMain: Boolean = false
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .size(40.dp)
+                .size(if (isMain) 32.dp else 40.dp)
                 .clip(CircleShape)
                 .background(color),
             contentAlignment = Alignment.Center
