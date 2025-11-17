@@ -6,13 +6,14 @@ import com.baek.lotto.data.model.SyncResultDto
 import com.baek.lotto.domain.model.Draw
 import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.domain.model.SyncResult
+import java.time.LocalDate
 
 object DomainMapper {
 
     fun DrawDto.toDomain(): Draw {
         return Draw(
             drawNo = drwNo,
-            drawDate = drwDate,
+            drawDate = LocalDate.parse(drwDate),
             numbers = numbers,
             bonus = bonus,
             firstPrize = firstWinamnt,
