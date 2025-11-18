@@ -1,8 +1,8 @@
 package com.baek.lotto.data.mapper
 
-import com.baek.lotto.data.model.DrawDto
-import com.baek.lotto.data.model.RandomLottoDto
-import com.baek.lotto.data.model.SyncResultDto
+import com.baek.lotto.data.remote.dto.DrawDto
+import com.baek.lotto.data.remote.dto.RandomLottoDto
+import com.baek.lotto.data.remote.dto.SyncResultDto
 import com.baek.lotto.domain.model.Draw
 import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.domain.model.SyncResult

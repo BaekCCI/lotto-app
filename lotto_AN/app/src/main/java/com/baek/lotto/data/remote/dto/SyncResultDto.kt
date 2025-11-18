@@ -1,4 +1,4 @@
-package com.baek.lotto.data.model
+package com.baek.lotto.data.remote.dto
 
 data class SyncResultDto(
     val fromDrw: Int,

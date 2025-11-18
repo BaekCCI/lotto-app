@@ -8,7 +8,7 @@ import com.baek.lotto.domain.model.SyncResult
 import javax.inject.Inject
 import com.baek.lotto.common.Result
 import com.baek.lotto.data.mapper.DomainMapper.toDomain
-import com.baek.lotto.data.model.RandomLottoRequest
+import com.baek.lotto.data.remote.dto.RandomLottoRequest
 
 class LottoRepositoryImpl @Inject constructor(
     private val api: LottoApi

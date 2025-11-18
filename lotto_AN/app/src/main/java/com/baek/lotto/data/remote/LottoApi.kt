@@ -1,10 +1,10 @@
 package com.baek.lotto.data.remote
 
 import com.baek.lotto.common.ApiResponse
-import com.baek.lotto.data.model.DrawDto
-import com.baek.lotto.data.model.RandomLottoDto
-import com.baek.lotto.data.model.RandomLottoRequest
-import com.baek.lotto.data.model.SyncResultDto
+import com.baek.lotto.data.remote.dto.DrawDto
+import com.baek.lotto.data.remote.dto.RandomLottoDto
+import com.baek.lotto.data.remote.dto.RandomLottoRequest
+import com.baek.lotto.data.remote.dto.SyncResultDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

@@ -1,6 +1,4 @@
-package com.baek.lotto.data.model
-
-import java.time.LocalDate
+package com.baek.lotto.data.remote.dto
 
 data class DrawDto(
     val drwNo: Int,
