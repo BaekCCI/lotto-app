@@ -11,7 +11,7 @@ object EntityMapper {
 
     fun RandomLotto.toEntity(now: LocalDate): LottoRecordEntity {
         return LottoRecordEntity(
-            numbers = numbers.joinToString { "," },
+            numbers = numbers.joinToString(","),
             createdAt = now.toYmdString()
         )
     }
