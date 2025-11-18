@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.baek.lotto.common.Result
 import com.baek.lotto.ui.mapper.UiMapper.toUi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -51,6 +52,7 @@ class LottoMachineViewModel @Inject constructor(
         val count = selectedCount ?: return
         drawResult = Result.Loading
         viewModelScope.launch {
+            delay(3000)
             when (val result = lottoRepository.createRandomLotto(count)) {
 
                 is Result.Success -> {

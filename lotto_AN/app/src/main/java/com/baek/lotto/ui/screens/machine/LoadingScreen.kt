@@ -3,16 +3,8 @@ package com.baek.lotto.ui.screens.machine
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,9 +31,8 @@ fun LoadingScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         DotLottieAnimation(
-            source = DotLottieSource.Url("https://lottie.host/27af6970-6ec5-4302-bbd0-0a5a1972f1b7/zDdKUH33Xm.lottie"),
+            source = DotLottieSource.Url("https://lottie.host/099140e8-ca20-4f39-817b-edbc3a8fe6a3/9vMvhmCN4W.lottie"),
             autoplay = true,
             loop = true,
             speed = 3f,
@@ -55,7 +46,7 @@ fun LoadingScreen() {
             text = "로또 뽑는 중...",
             style = LottoTypography.headlineSmall,
             color = Color.White,
-            interval = 90L
+            interval = 100L
         )
     }
 }
@@ -63,7 +54,7 @@ fun LoadingScreen() {
 @Composable
 fun TypingText(
     text: String,
-    interval: Long = 90L,
+    interval: Long = 100L,
     color: Color = Color.White,
     style: TextStyle
 ) {
@@ -81,7 +72,7 @@ fun TypingText(
                 visibleText = text.take(index + 1)
                 delay(interval)
             }
-            delay(1000)
+            delay(1500)
         }
     }
     Text(
