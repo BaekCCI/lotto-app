@@ -12,11 +12,13 @@ fun LottoMachineRoute(
     LottoMachineScreen(
         selectedCount = viewModel.selectedCount,
         drawResult = viewModel.drawResult,
+        saveState = viewModel.saveState,
         onEvent = { event ->
             when (event) {
                 LottoMachineEvent.OnBackClick -> {
                     navController.popBackStack()
                 }
+
                 else -> {
                     viewModel.onEvent(event)
                 }

@@ -43,6 +43,7 @@ import com.baek.lotto.ui.theme.TextPrimary
 fun LottoMachineScreen(
     selectedCount: Int? = null,
     drawResult: Result<List<RandomLottoUiModel>>,
+    saveState: Result<Unit>,
     onEvent: (LottoMachineEvent) -> Unit
 ) {
     Scaffold(
@@ -58,7 +59,8 @@ fun LottoMachineScreen(
             when (drawResult) {
                 is Result.Success -> ResultScreen(
                     result = drawResult.data,
-                    onEvent = onEvent
+                    onEvent = onEvent,
+                    saveState = saveState
                 )
 
                 else -> SelectScreen(
@@ -126,6 +128,7 @@ private fun LottoMachineScreen_Select_Preview() {
         LottoMachineScreen(
             selectedCount = null,
             drawResult = Result.Loading,
+            saveState = Result.Loading,
             onEvent = {}
         )
     }
@@ -138,6 +141,7 @@ private fun LottoMachineScreen_Loading_Preview() {
         LottoMachineScreen(
             selectedCount = 3,
             drawResult = Result.Loading,
+            saveState = Result.Loading,
             onEvent = {}
         )
     }
@@ -183,6 +187,7 @@ private fun LottoMachineScreen_Result_Preview() {
                     )
                 )
             ),
+            saveState = Result.Loading,
             onEvent = {}
         )
     }
