@@ -77,4 +77,8 @@ dependencies {
     implementation("com.airbnb.android:lottie-compose:6.3.0")
     implementation("com.github.LottieFiles:dotlottie-android:0.12.0")
 
+    //roomDB
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }
