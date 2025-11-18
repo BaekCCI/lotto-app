@@ -29,9 +29,9 @@ class StorageRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteLotto(id: Long): Result<Unit> {
+    override suspend fun deleteLotto(ids: List<Long>): Result<Unit> {
         return handleDao {
-            dao.delete(id)
+            dao.deleteAll(ids)
         }
     }
 

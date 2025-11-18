@@ -10,7 +10,7 @@ interface StorageRepository {
 
     suspend fun getLottoHistory(): Result<List<LottoRecord>>
 
-    suspend fun deleteLotto(id: Long): Result<Unit>
+    suspend fun deleteLotto(ids: List<Long>): Result<Unit>
 
     suspend fun deleteAll(): Result<Unit>
 }
