@@ -67,7 +67,7 @@ fun LottoCard(
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = 200.dp)
                 .padding(horizontal = 8.dp, vertical = 16.dp),
-            contentAlignment = Alignment.Center  // ⭐ 여기!
+            contentAlignment = Alignment.Center
         ) {
             when (drawState) {
                 is Result.Loading -> {
