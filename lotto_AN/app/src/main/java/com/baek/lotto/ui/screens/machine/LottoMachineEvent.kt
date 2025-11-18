@@ -11,4 +11,6 @@ sealed interface LottoMachineEvent {
     data object OnClickRetry : LottoMachineEvent
 
     data object OnClickSave : LottoMachineEvent
+
+    data object OnSaveHandled : LottoMachineEvent
 }

@@ -10,13 +10,16 @@ import com.baek.lotto.ui.model.RandomLottoUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.baek.lotto.common.Result
+import com.baek.lotto.domain.model.RandomLotto
+import com.baek.lotto.domain.repository.StorageRepository
 import com.baek.lotto.ui.mapper.UiMapper.toUi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LottoMachineViewModel @Inject constructor(
-    private val lottoRepository: LottoRepository
+    private val lottoRepository: LottoRepository,
+    private val storageRepository: StorageRepository
 ) : ViewModel() {
 
     var selectedCount by mutableStateOf<Int?>(null)
@@ -24,6 +27,10 @@ class LottoMachineViewModel @Inject constructor(
 
     var drawResult by mutableStateOf<Result<List<RandomLottoUiModel>>>(Result.None)
         private set
+
+    private var lastRandomLotto: List<RandomLotto> = emptyList()
+
+    var saveState by mutableStateOf<Result<Unit>>(Result.None)
 
     fun onEvent(event: LottoMachineEvent) {
         when (event) {
@@ -45,6 +52,10 @@ class LottoMachineViewModel @Inject constructor(
             is LottoMachineEvent.OnClickSave -> {
                 saveResult()
             }
+
+            is LottoMachineEvent.OnSaveHandled -> {
+                saveState = Result.None
+            }
         }
     }
 
@@ -56,6 +67,8 @@ class LottoMachineViewModel @Inject constructor(
             when (val result = lottoRepository.createRandomLotto(count)) {
 
                 is Result.Success -> {
+                    lastRandomLotto = result.data
+
                     val uiList = result.data.map { it.toUi() }
                     drawResult = Result.Success(uiList)
                 }
@@ -72,9 +85,16 @@ class LottoMachineViewModel @Inject constructor(
     }
 
     private fun saveResult() {
-        val result = drawResult
-        if (result !is Result.Success) return
+        saveState = Result.Loading
 
-        //TODO: 저장 로직
+        val domainList = lastRandomLotto
+        if (domainList.isEmpty()) {
+            saveState = Result.Error("저장할 로또가 없습니다.")
+            return
+        }
+
+        viewModelScope.launch {
+            saveState = storageRepository.saveLotto(domainList)
+        }
     }
 }
