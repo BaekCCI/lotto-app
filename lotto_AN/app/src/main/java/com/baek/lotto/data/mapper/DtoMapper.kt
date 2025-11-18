@@ -8,7 +8,7 @@ import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.domain.model.SyncResult
 import java.time.LocalDate
 
-object DomainMapper {
+object DtoMapper {
 
     fun DrawDto.toDomain(): Draw {
         return Draw(

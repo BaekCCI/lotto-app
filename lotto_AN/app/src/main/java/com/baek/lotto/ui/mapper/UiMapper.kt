@@ -4,7 +4,7 @@ import com.baek.lotto.domain.model.Draw
 import com.baek.lotto.domain.model.DrawInfo
 import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.ui.mapper.BallColorMapper.getBallColor
-import com.baek.lotto.ui.mapper.DateFormatter.toUiString
+import com.baek.lotto.common.DateFormatter.toYmdString
 import com.baek.lotto.ui.model.DrawInfoUiModel
 import com.baek.lotto.ui.model.DrawUiModel
 import com.baek.lotto.ui.model.NumberUiModel
@@ -38,7 +38,7 @@ object UiMapper {
     }
 
     private fun buildTitle(drawNo: Int, date: LocalDate): String {
-        val dateText = date.toUiString()
+        val dateText = date.toYmdString()
         return "${drawNo}회차(${dateText})"
     }
 
