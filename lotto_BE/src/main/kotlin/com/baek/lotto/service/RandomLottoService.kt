@@ -18,10 +18,23 @@ class RandomLottoService(
 ) {
     private val mapper = jacksonObjectMapper()
 
-    fun generate(): RandomLottoDto {
+    fun generate(count: Int): List<RandomLottoDto> {
         val recent20 = getNumbers(RECENT_ID)
         val global15 = getNumbers(GLOBAL_ID)
 
+        return (0 until count).map {
+            createLotto(recent20, global15)
+        }
+    }
+
+    private fun getNumbers(id: String): List<Int> {
+        val entity = statsSnapshotRepository.findById(id).orElse(null) ?: return emptyList()
+
+        return mapper.readValue(entity.numbers, List::class.java)?.map { (it as Number).toInt() }
+            ?: emptyList()
+    }
+
+    private fun createLotto(recent20: List<Int>, global15: List<Int>): RandomLottoDto {
         val picked = mutableSetOf<Int>()
         picked.addAll(recent20.pickRandom(PICK_RECENT_COUNT))
         picked.addAll(global15.pickRandom(PICK_GLOBAL_COUNT))
@@ -32,12 +45,6 @@ class RandomLottoService(
         return RandomLottoDto(picked.toList().sorted())
     }
 
-    private fun getNumbers(id: String): List<Int> {
-        val entity = statsSnapshotRepository.findById(id).orElse(null) ?: return emptyList()
-
-        return mapper.readValue(entity.numbers, List::class.java)?.map { (it as Number).toInt() }
-            ?: emptyList()
-    }
 
     private fun List<Int>.pickRandom(count: Int): Set<Int> {
         return this.shuffled().take(count).toSet()
