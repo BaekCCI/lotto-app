@@ -34,10 +34,12 @@ import com.baek.lotto.ui.theme.LottoYellow
 @Composable
 fun StorageScreen(
     isEditing: Boolean,
-    groupList: Result<List<StorageGroupUiModel>>,
+    loadState: Result<Unit>,
+    dialogState: StorageDialog,
+    groupList: List<StorageGroupUiModel>,
     onEvent: (StorageEvent) -> Unit
 ) {
-    val canEdit = (groupList is Result.Success) && groupList.data.isNotEmpty()
+    val canEdit = (loadState is Result.Success) && groupList.isNotEmpty()
     val pullState = rememberPullToRefreshState()
 
     Scaffold(
@@ -73,17 +75,17 @@ fun StorageScreen(
     ) { innerPadding ->
         PullToRefreshBox(
             state = pullState,
-            isRefreshing = if (isEditing) false else (groupList is Result.Loading),
+            isRefreshing = if (isEditing) false else (loadState is Result.Loading),
             onRefresh = {
                 if (!isEditing) {
                     onEvent(StorageEvent.OnClickReload)
                 }
             }
         ) {
-            when (groupList) {
+            when (loadState) {
                 is Result.Success -> {
                     StorageListView(
-                        groupList = groupList.data,
+                        groupList = groupList,
                         onEvent = onEvent,
                         isEditing = isEditing,
                         modifier = Modifier
@@ -93,7 +95,7 @@ fun StorageScreen(
                 }
 
                 is Result.Error -> StorageErrorView(
-                    message = groupList.message,
+                    message = loadState.message,
                     onEvent = onEvent
                 )
 
@@ -113,6 +115,27 @@ fun StorageScreen(
                 else -> {}
             }
         }
+    }
+    when (dialogState) {
+        StorageDialog.ConfirmDeleteAll -> {
+            ConfirmDialog(
+                title = "모두 삭제하시겠습니다?",
+                message = "삭제한 이후에는 되돌릴 수 없습니다.",
+                onConfirm = { onEvent(StorageEvent.OnConfirmDeleteAll) },
+                onCancel = { onEvent(StorageEvent.OnDismissDialog) }
+            )
+        }
+
+        StorageDialog.ConfirmEdit -> {
+            ConfirmDialog(
+                title = "수정하시겠습니까?",
+                message = "수정한 이후에는 되돌릴 수 없습니다.",
+                onConfirm = { onEvent(StorageEvent.OnConfirmEdit) },
+                onCancel = { onEvent(StorageEvent.OnDismissDialog) }
+            )
+        }
+
+        else -> Unit
     }
 }
 
@@ -161,7 +184,9 @@ fun StorageScreenPreview() {
 
     StorageScreen(
         isEditing = false,
-        groupList = Result.Success(sampleGroups),
+        loadState = Result.Success(Unit),
+        dialogState = StorageDialog.ConfirmEdit,
+        groupList = sampleGroups,
         onEvent = {}
     )
 }
