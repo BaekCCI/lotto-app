@@ -5,10 +5,13 @@ import com.baek.lotto.domain.model.DrawInfo
 import com.baek.lotto.domain.model.RandomLotto
 import com.baek.lotto.ui.mapper.BallColorMapper.getBallColor
 import com.baek.lotto.common.DateFormatter.toYmdString
+import com.baek.lotto.domain.model.LottoRecord
 import com.baek.lotto.ui.model.DrawInfoUiModel
 import com.baek.lotto.ui.model.DrawUiModel
 import com.baek.lotto.ui.model.NumberUiModel
 import com.baek.lotto.ui.model.RandomLottoUiModel
+import com.baek.lotto.ui.model.StorageGroupUiModel
+import com.baek.lotto.ui.model.StorageItemUiModel
 import java.time.LocalDate
 
 object UiMapper {
@@ -33,6 +36,26 @@ object UiMapper {
 
     fun RandomLotto.toUi(): RandomLottoUiModel {
         return RandomLottoUiModel(
+            numbers = numbers.map { it.toUi() }
+        )
+    }
+
+    fun List<LottoRecord>.toUiGroup(): List<StorageGroupUiModel> {
+        val grouped = this.groupBy { it.createdAt }
+
+        return grouped.map { (date, records) ->
+            StorageGroupUiModel(
+                id = date.hashCode().toLong(),
+                date = date.toYmdString(),
+                isExpanded = true,
+                items = records.map { it.toUi() }
+            )
+        }
+    }
+
+    fun LottoRecord.toUi(): StorageItemUiModel {
+        return StorageItemUiModel(
+            id = id,
             numbers = numbers.map { it.toUi() }
         )
     }
