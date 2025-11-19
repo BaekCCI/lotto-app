@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.baek.lotto.ui.screens.machine.LottoMachineRoute
 import com.baek.lotto.ui.screens.main.MainRoute
+import com.baek.lotto.ui.screens.storage.StorageRoute
 
 @Composable
 fun LottoNavGraph(
@@ -25,7 +26,7 @@ fun LottoNavGraph(
             LottoMachineRoute(navController = navController)
         }
         composable(Screen.Storage.route) {
-            Text("로또 보관함")
+            StorageRoute(navController = navController)
         }
     }
 }
