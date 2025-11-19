@@ -1,5 +1,9 @@
 package com.baek.lotto.ui.screens.storage
 
+import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,8 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.baek.lotto.common.Result
@@ -35,12 +43,33 @@ import com.baek.lotto.ui.theme.LottoYellow
 fun StorageScreen(
     isEditing: Boolean,
     loadState: Result<Unit>,
+    saveState: Result<Unit>,
     dialogState: StorageDialog,
     groupList: List<StorageGroupUiModel>,
     onEvent: (StorageEvent) -> Unit
 ) {
     val canEdit = (loadState is Result.Success) && groupList.isNotEmpty()
     val pullState = rememberPullToRefreshState()
+    val context = LocalContext.current
+    LaunchedEffect(saveState) {
+        when (saveState) {
+            is Result.Success -> {
+                Toast
+                    .makeText(context, "수정이 완료되었습니다.", Toast.LENGTH_SHORT)
+                    .show()
+                onEvent(StorageEvent.OnClearSaveState)
+            }
+
+            is Result.Error -> {
+                Toast
+                    .makeText(context, saveState.message ?: "처리에 실패했습니다.", Toast.LENGTH_SHORT)
+                    .show()
+                onEvent(StorageEvent.OnClearSaveState)
+            }
+
+            else -> Unit
+        }
+    }
 
     Scaffold(
         containerColor = Background,
@@ -137,6 +166,23 @@ fun StorageScreen(
 
         else -> Unit
     }
+    if (saveState is Result.Loading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(
+                    enabled = true,
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ) {},
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = LottoBlue,
+                strokeWidth = 4.dp
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -185,7 +231,8 @@ fun StorageScreenPreview() {
     StorageScreen(
         isEditing = false,
         loadState = Result.Success(Unit),
-        dialogState = StorageDialog.ConfirmEdit,
+        saveState = Result.Loading,
+        dialogState = StorageDialog.None,
         groupList = sampleGroups,
         onEvent = {}
     )

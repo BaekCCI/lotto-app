@@ -15,4 +15,5 @@ sealed interface StorageEvent {
     object OnConfirmEdit : StorageEvent
     object OnConfirmDeleteAll : StorageEvent
     object OnDismissDialog : StorageEvent
+    object OnClearSaveState : StorageEvent
 }
