@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import com.baek.lotto.ui.theme.*
 import androidx.compose.ui.graphics.Color
+import com.baek.lotto.ui.components.TypingText
 
 @Composable
 fun SplashScreen() {
@@ -32,10 +33,12 @@ fun SplashScreen() {
                 textAlign = TextAlign.Center
             )
             Spacer(Modifier.height(16.dp))
-            Text(
+            TypingText(
                 text = "Life is beautiful",
+                interval = 80,
                 color = TextPrimary,
-                style = LottoTypography.bodyLarge
+                style = LottoTypography.bodyLarge,
+                isRepeat = false
             )
             Spacer(Modifier.height(80.dp))
 
