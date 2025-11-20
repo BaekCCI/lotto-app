@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.baek.lotto.ui.screens.machine.LottoMachineRoute
 import com.baek.lotto.ui.screens.main.MainRoute
+import com.baek.lotto.ui.screens.splash.SplashRoute
 import com.baek.lotto.ui.screens.storage.StorageRoute
 
 @Composable
@@ -17,8 +18,12 @@ fun LottoNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Main.route
+        startDestination = Screen.Splash.route
     ) {
+        composable(Screen.Splash.route) {
+            SplashRoute(navController)
+        }
+
         composable(Screen.Main.route) {
             MainRoute(navController = navController)
         }
