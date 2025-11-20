@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.baek.lotto.ui.components.TypingText
 import com.baek.lotto.ui.theme.LottoTypography
 import com.dotlottie.dlplayer.Mode
 import com.lottiefiles.dotlottie.core.compose.ui.DotLottieAnimation
@@ -49,37 +50,6 @@ fun LoadingScreen() {
             interval = 100L
         )
     }
-}
-
-@Composable
-fun TypingText(
-    text: String,
-    interval: Long = 100L,
-    color: Color = Color.White,
-    style: TextStyle
-) {
-    var visibleText by remember { mutableStateOf("") }
-
-    LaunchedEffect(text) {
-        visibleText = ""
-        text.forEachIndexed { index, _ ->
-            visibleText = text.take(index + 1)
-            delay(interval)
-        }
-        while (true) {
-            visibleText = ""
-            text.forEachIndexed { index, _ ->
-                visibleText = text.take(index + 1)
-                delay(interval)
-            }
-            delay(1500)
-        }
-    }
-    Text(
-        text = visibleText,
-        color = color,
-        style = style
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
