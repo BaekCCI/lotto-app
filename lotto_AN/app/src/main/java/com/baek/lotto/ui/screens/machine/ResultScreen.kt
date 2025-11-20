@@ -30,7 +30,6 @@ import com.baek.lotto.ui.components.OutlineButton
 import com.baek.lotto.ui.model.RandomLottoUiModel
 import com.baek.lotto.ui.theme.LottoBlue
 import com.baek.lotto.ui.theme.LottoTypography
-import com.baek.lotto.ui.theme.Surface
 import com.baek.lotto.ui.theme.SurfaceSubtle
 
 @Composable
